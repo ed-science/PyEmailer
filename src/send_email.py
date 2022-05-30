@@ -7,16 +7,13 @@ server = smtplib.SMTP('smtp.gmail.com:587')
 regex = '^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$'
 
 def checkEmail(email):
-    if(re.search(regex, email)):
-        return True
-    else:
-        return False
+    return bool((re.search(regex, email)))
 
 # https://myaccount.google.com/security to get app_password
 
 def sendEmail(your_email_id: str, your_app_password: str, 
               email_subject: str, email_content: str, listOfEmail: list):
-    
+
     """ Send email to list of email id
     
     Args:
@@ -43,8 +40,8 @@ def sendEmail(your_email_id: str, your_app_password: str,
     for destinationEmail in listOfEmail:
         if checkEmail(destinationEmail):
             s.sendmail(msg['From'], destinationEmail, msg.as_string())
-            print("sending to {}".format(destinationEmail))
+            print(f"sending to {destinationEmail}")
         else:
-            print("[INFO]: {} is not a valid email.".format(destinationEmail))
+            print(f"[INFO]: {destinationEmail} is not a valid email.")
     
     
